@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"log"
 	"math/rand"
 	"net/url"
 	"regexp"
@@ -28,6 +29,9 @@ func (d douYin) parseVideoID(videoId string) (*VideoParseInfo, error) {
 
 	re := regexp.MustCompile(`window._ROUTER_DATA\s*=\s*(.*?)</script>`)
 	findRes := re.FindSubmatch(res.Body())
+	
+	log.Println(string(findRes[1]))
+
 	if len(findRes) < 2 {
 		return nil, errors.New("parse video json info from html fail")
 	}
