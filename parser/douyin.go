@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"log"
 	"math/rand"
 	"net/url"
 	"regexp"
@@ -21,7 +20,7 @@ func (d douYin) parseVideoID(videoId string) (*VideoParseInfo, error) {
 
 	client := resty.New()
 	res, err := client.R().
-		SetHeader(HttpHeaderUserAgent, "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1 Edg/122.0.0.0").
+		SetHeader(HttpHeaderUserAgent, "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1").
 		Get(reqUrl)
 	if err != nil {
 		return nil, err
@@ -29,8 +28,6 @@ func (d douYin) parseVideoID(videoId string) (*VideoParseInfo, error) {
 
 	re := regexp.MustCompile(`window._ROUTER_DATA\s*=\s*(.*?)</script>`)
 	findRes := re.FindSubmatch(res.Body())
-
-	log.Println(string(res.Body()))
 
 	if len(findRes) < 2 {
 		return nil, errors.New("parse video json info from html fail")
