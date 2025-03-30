@@ -15,7 +15,8 @@ func Test_douYin_parseIdFromPath(t *testing.T) {
 		wantErr bool
 	}{
 		{"抖音视频", args{"/share/video/7329354490828623130/"}, "7329354490828623130", false},
-		{"西瓜视频", args{"/douyin/share/video/7144194760184594977"}, "7144194760184594977", false},
+		{"西瓜视频", args{"/douyin/share/video/7144194760184594977/"}, "7144194760184594977", false},
+		{"西瓜视频", args{"/v.douyin.com/W9SzGrQY78A/"}, "W9SzGrQY78A", false},
 		{"异常视频", args{""}, "", true},
 	}
 	for _, tt := range tests {
