@@ -1,24 +1,14 @@
-FROM golang:alpine AS builder
+FROM golang:1.22.7-alpine AS builder
 
-LABEL stage=gobuilder
+WORKDIR /app
 
-ENV CGO_ENABLED 0
-
-RUN apk update --no-cache && apk add --no-cache tzdata
-
-WORKDIR /build
-
-ADD go.mod .
-ADD go.sum .
+COPY go.mod go.sum ./
 RUN go mod download
-COPY . .
-RUN go build -x -v -o /app/main ./main.go
 
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o /app/main ./main.go
 
 FROM scratch
-
-COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /usr/share/zoneinfo/Asia/Shanghai
-ENV TZ Asia/Shanghai
 
 WORKDIR /app
 COPY --from=builder /app/main /app/main
@@ -26,4 +16,4 @@ COPY templates /app/templates
 
 EXPOSE 8100
 
-CMD ["./main"]
+CMD ["/app/main"]
