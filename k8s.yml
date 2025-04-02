@@ -17,7 +17,7 @@ spec:
       containers:
       - name: remove-watermark-api
         image: beancookie/remove-watermark-api:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 8100
         resources:
