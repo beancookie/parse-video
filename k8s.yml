@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: remove-watermark-api-deployment
+  name: remove-watermark-api
   labels:
     app: remove-watermark-api
 spec:
-  replicas: 1  # 副本数
+  replicas: 1
   selector:
     matchLabels:
       app: remove-watermark-api
@@ -17,24 +17,22 @@ spec:
       containers:
       - name: remove-watermark-api
         image: beancookie/remove-watermark-api:latest
-        imagePullPolicy: IfNotPresent  # 如果镜像已存在则不再拉取
+        imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8100  # 应用监听的端口
+        - containerPort: 8100
         resources:
           requests:
-            cpu: "100m"  # 0.1 CPU
+            cpu: "100m"
             memory: "128Mi"
           limits:
-            cpu: "500m"   # 0.5 CPU
+            cpu: "500m"
             memory: "512Mi"
-        # 存活探针（可选）
         livenessProbe:
           httpGet:
             path: /
             port: 8100
           initialDelaySeconds: 15
           periodSeconds: 20
-        # 就绪探针（可选）
         readinessProbe:
           httpGet:
             path: /
@@ -45,14 +43,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: remove-watermark-api-service
+  name: remove-watermark-api
 spec:
   selector:
-    app: remove-watermark-api  # 匹配 Deployment 的标签
+    app: remove-watermark-api
   ports:
     - protocol: TCP
-      port: 8100      # Service 对外端口
-      targetPort: 8100  # 容器端口
-  type: ClusterIP  # 默认类型，仅集群内访问
-  # type: NodePort   # 如需节点端口访问
-  # type: LoadBalancer  # 云厂商负载均衡器
+      port: 8100      
+      targetPort: 8100  
+  type: ClusterIP
