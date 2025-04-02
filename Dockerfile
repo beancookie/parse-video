@@ -26,6 +26,6 @@ WORKDIR /app
 COPY --from=builder /app/main /app/main
 COPY templates /app/templates
 
-EXPOSE 8080
+EXPOSE 8100
 
 CMD ["./main"]
