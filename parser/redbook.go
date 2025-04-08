@@ -10,6 +10,7 @@ import (
 	"github.com/tidwall/gjson"
 
 	"github.com/go-resty/resty/v2"
+	"github.com/your-username/remove-watermark-api/utils"
 )
 
 type redBook struct{}
@@ -59,8 +60,8 @@ func (r redBook) parseShareUrl(shareUrl string) (*VideoParseInfo, error) {
 
 	parseInfo := &VideoParseInfo{
 		Title:    data.Get("title").String(),
-		VideoUrl: data.Get("video.media.stream.h264.0.masterUrl").String(),
-		CoverUrl: data.Get("imageList.0.urlDefault").String(),
+		VideoUrl: utils.ConvertToHttps(data.Get("video.media.stream.h264.0.masterUrl").String()),
+		CoverUrl: utils.ConvertToHttps(data.Get("imageList.0.urlDefault").String()),
 		Images:   images,
 	}
 	parseInfo.Author.Uid = data.Get("user.userId").String()

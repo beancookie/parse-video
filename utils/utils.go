@@ -3,6 +3,7 @@ package utils
 import (
 	"fmt"
 	"regexp"
+	"strings"
 )
 
 func RegexpMatchUrlFromString(str string) (string, error) {
@@ -17,4 +18,12 @@ func RegexpMatchUrlFromString(str string) (string, error) {
 	}
 
 	return findStr, nil
+}
+
+// ConvertToHttps 将URL从http转换为https
+func ConvertToHttps(url string) string {
+	if strings.HasPrefix(url, "http://") {
+		return "https://" + strings.TrimPrefix(url, "http://")
+	}
+	return url
 }
