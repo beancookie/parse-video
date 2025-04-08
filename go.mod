@@ -1,4 +1,4 @@
-module github.com/wujunwei928/parse-video
+module github.com/beancookie/remove-watermark-api
 
 go 1.22.7
 

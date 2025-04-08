@@ -13,7 +13,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/wujunwei928/parse-video/parser"
+	"github.com/beancookie/remove-watermark-api/parser"
 )
 
 type HttpResponse struct {

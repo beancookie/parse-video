@@ -10,7 +10,7 @@ import (
 	"github.com/tidwall/gjson"
 
 	"github.com/go-resty/resty/v2"
-	"github.com/your-username/remove-watermark-api/utils"
+	"github.com/beancookie/remove-watermark-api/utils"
 )
 
 type redBook struct{}
