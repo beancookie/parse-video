@@ -81,7 +81,7 @@ var videoSourceInfoMapping = map[string]videoSourceInfo{
 		VideoIdParser:       douYin{},
 	},
 	SourceKuaiShou: {
-		VideoShareUrlDomain: []string{"v.kuaishou.com"},
+		VideoShareUrlDomain: []string{"kuaishou.com"},
 		VideoShareUrlParser: kuaiShou{},
 	},
 	SourceZuiYou: {

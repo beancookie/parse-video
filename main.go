@@ -55,6 +55,8 @@ func main() {
 			}
 		}
 
+		log.Printf("Response: %+v", jsonRes)
+
 		c.JSON(http.StatusOK, jsonRes)
 	})
 
@@ -74,6 +76,8 @@ func main() {
 				Msg:  err.Error(),
 			}
 		}
+
+		log.Printf("Response: %+v", jsonRes)
 
 		c.JSON(200, jsonRes)
 	})
