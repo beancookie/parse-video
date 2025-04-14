@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"embed"
+	"encoding/json"
 	"html/template"
 	"io/fs"
 	"log"
@@ -26,7 +27,7 @@ type HttpResponse struct {
 var files embed.FS
 
 func main() {
-	r := gin.Default()
+	r := gin.New()
 
 	sub, err := fs.Sub(files, "templates")
 	if err != nil {
@@ -55,7 +56,16 @@ func main() {
 			}
 		}
 
-		log.Printf("Response: %+v", jsonRes)
+		jsonData, err := json.MarshalIndent(jsonRes, "", "  ")
+
+		if err != nil {
+			jsonRes = HttpResponse{
+				Code: 201,
+				Msg:  err.Error(),
+			}
+		}
+
+		log.Printf("%s -> %+v", paramUrl, string(jsonData))
 
 		c.JSON(http.StatusOK, jsonRes)
 	})
@@ -77,7 +87,16 @@ func main() {
 			}
 		}
 
-		log.Printf("Response: %+v", jsonRes)
+		jsonData, err := json.MarshalIndent(jsonRes, "", "  ")
+
+		if err != nil {
+			jsonRes = HttpResponse{
+				Code: 201,
+				Msg:  err.Error(),
+			}
+		}
+
+		log.Printf("%s %s -> %+v", source, videoId, string(jsonData))
 
 		c.JSON(200, jsonRes)
 	})
